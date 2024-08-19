@@ -10,7 +10,7 @@ current_correction_index = 0
 
 toggle = True
 
-def sample_function(event):
+def key_function(event):
     global current_word
     if event.name in string.ascii_letters:
         current_word += event.name
@@ -21,7 +21,7 @@ def sample_function(event):
 
 def correct_spelling(e):
     global current_word, current_correction_index, correction_list
-
+    print("works")
     if not current_word:
         return
 
@@ -61,22 +61,22 @@ def reset_all(e):
 def toggle_fun():
     global toggle
     toggle = not toggle
-    update_bindings()
+    # update_bindings()
 
-def update_bindings():
-    if toggle:
-        keyboard.on_press(sample_function)
-        keyboard.on_press_key("shift", correct_spelling)
-    else:
-        keyboard.unhook(sample_function)
-        keyboard.unhook_key("shift")
+# def update_bindings():
+#     if toggle:
+#
+#   
+#         keyboard.unhook(sample_function)
+#         keyboard.unhook_key("shift")
 
 # Ensure that the space reset and toggle hotkey are always active
 keyboard.on_press_key("space", reset_all)
 keyboard.add_hotkey("esc+p", toggle_fun)
-
+keyboard.on_press(key_function)
+keyboard.on_press_key("shift", correct_spelling)
 # Start with the bindings active
-update_bindings()
+# update_bindings()
 
 # Wait for the specified keys to quit
 keyboard.wait("esc+p+k")
